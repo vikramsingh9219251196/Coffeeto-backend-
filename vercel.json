@@ -1,13 +1,10 @@
 {
-    "version": 2,
-    "name": "coffeeto",
-    "functions": {
-      "api/*": {
-        "handler": "server.js",
-        "runtime": "@vercel/node12"
-      }
-    },
-    "routes": [
+   "version": 2,
+   "name": "coffeeto_backend",
+   "builds": [
+      { "src": "server.js", "use": "@vercel/node" }
+   ],
+   "routes": [
       { "src": "/(.*)", "dest": "/server.js" }
-    ]
-  }
+   ]
+}
