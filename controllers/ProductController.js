@@ -1,11 +1,10 @@
-import ProductModel from "../models/ProductModel.js";
-import fs from "fs";
-import slugify from "slugify";
-import CategoryModel from "../models/CategoryModel.js";
-import  orderModel  from "../models/orderModel.js"
-import dotenv from "dotenv"
-
-import braintree from "braintree";
+const ProductModel = require("../models/ProductModel.js");
+const fs = require("fs");
+const slugify = require("slugify");
+const CategoryModel = require("../models/CategoryModel.js");
+const orderModel = require("../models/orderModel.js");
+const dotenv = require("dotenv");
+const braintree = require("braintree");
 
 
 
@@ -19,7 +18,7 @@ var gateway = new braintree.BraintreeGateway({
 });
 
 
-export const createProductController = async (req, res) => {
+module.exports. createProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } =
       req.fields;
@@ -64,7 +63,7 @@ export const createProductController = async (req, res) => {
 };
 
 //get all products
-export const getProductController = async (req, res) => {
+module.exports. getProductController = async (req, res) => {
   try {
     const products = await ProductModel
       .find({})
@@ -87,7 +86,7 @@ export const getProductController = async (req, res) => {
   }
 };
 // get single product
-export const getSingleProductController = async (req, res) => {
+module.exports. getSingleProductController = async (req, res) => {
   try {
     const product = await ProductModel
       .findOne({ slug: req.params.slug })
@@ -109,7 +108,7 @@ export const getSingleProductController = async (req, res) => {
 };
 
 // get photo
-export const productPhotoController = async (req, res) => {
+module.exports. productPhotoController = async (req, res) => {
   try {
     const product = await ProductModel.findById(req.params.pid).select("photo");
     if (product.photo.data) {
@@ -127,7 +126,7 @@ export const productPhotoController = async (req, res) => {
 };
 
 //delete controller
-export const deleteProductController = async (req, res) => {
+module.exports. deleteProductController = async (req, res) => {
   try {
     await ProductModel.findByIdAndDelete(req.params.pid).select("-photo");
     res.status(200).send({
@@ -145,7 +144,7 @@ export const deleteProductController = async (req, res) => {
 };
 
 //upate producta
-export const updateProductController = async (req, res) => {
+module.exports. updateProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } =
       req.fields;
@@ -194,7 +193,7 @@ export const updateProductController = async (req, res) => {
 };
 
 // filters
-export const productFiltersController = async (req, res) => {
+module.exports. productFiltersController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
     let args = {};
@@ -216,7 +215,7 @@ export const productFiltersController = async (req, res) => {
 };
 
 // product count
-export const productCountController = async (req, res) => {
+module.exports. productCountController = async (req, res) => {
   try {
     const total = await ProductModel.find({}).estimatedDocumentCount();
     res.status(200).send({
@@ -234,7 +233,7 @@ export const productCountController = async (req, res) => {
 };
 
 // product list base on page
-export const productListController = async (req, res) => {
+module.exports. productListController = async (req, res) => {
   try {
     const perPage = 6;
     const page = req.params.page ? req.params.page : 1;
@@ -258,7 +257,7 @@ export const productListController = async (req, res) => {
   }
 };
 // search product
-export const searchProductController = async (req, res) => {
+module.exports. searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
     const resutls = await ProductModel
@@ -281,7 +280,7 @@ export const searchProductController = async (req, res) => {
 };
 
 // similar products
-export const realtedProductController = async (req, res) => {
+module.exports. realtedProductController = async (req, res) => {
   try {
     const { pid, cid } = req.params;
     const products = await ProductModel
@@ -307,7 +306,7 @@ export const realtedProductController = async (req, res) => {
 };
 
 // get product by catgory
-export const productCategoryController = async (req, res) => {
+module.exports. productCategoryController = async (req, res) => {
   try {
     const category = await CategoryModel.findOne({ slug: req.params.slug });
     const products = await ProductModel.find({ category }).populate("category");
@@ -329,7 +328,7 @@ export const productCategoryController = async (req, res) => {
 
 //payment gateway api
 //token
-export const braintreeTokenController = async (req, res) => {
+module.exports. braintreeTokenController = async (req, res) => {
   try {
     gateway.clientToken.generate({}, function (err, response) {
       if (err) {
@@ -344,7 +343,7 @@ export const braintreeTokenController = async (req, res) => {
 };
 
 //payment
-export const brainTreePaymentController = async (req, res) => {
+module.exports. brainTreePaymentController = async (req, res) => {
   try {
     const { nonce, cart } = req.body;
     let total = 0;

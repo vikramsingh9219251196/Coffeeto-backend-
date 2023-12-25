@@ -1,11 +1,16 @@
-import express from "express";
-import { isAdmin,requireSignIn } from "../middlewares/authMiddleware.js";
-import { 
- createCategoryController,
- updateCategoryController,
- categoryController,
- singleCategoryController,
- deleteCategoryController } from "../controllers/CategoryController.js";
+const express = require("express");
+const authMiddleware = require("../middlewares/authMiddleware.js");
+const CategoryController = require("../controllers/CategoryController.js");
+
+const { isAdmin, requireSignIn } = authMiddleware;
+const {
+  createCategoryController,
+  updateCategoryController,
+  categoryController,
+  singleCategoryController,
+  deleteCategoryController,
+} = CategoryController;
+
 
 
 
@@ -42,4 +47,4 @@ router.delete(
   deleteCategoryController
 );
 
-export default router;
+module.exports = router;

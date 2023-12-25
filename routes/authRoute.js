@@ -1,5 +1,8 @@
-import express from "express";
-import {
+const express = require("express");
+const authController = require("../controllers/authController.js");
+const authMiddleware = require("../middlewares/authMiddleware.js");
+
+const {
   registerController,
   loginController,
   testController,
@@ -8,8 +11,10 @@ import {
   getOrdersController,
   orderStatusController,
   getAllOrdersController,
-} from "../controllers/authController.js";
-import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
+} = authController;
+
+const { isAdmin, requireSignIn } = authMiddleware;
+
 
 
 //router object
@@ -53,4 +58,4 @@ router.put(
 );
 
 
-export default router;
+module.exports = router;
